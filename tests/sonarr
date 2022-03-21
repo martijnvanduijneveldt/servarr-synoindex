@@ -1,0 +1,36 @@
+
+// synoIndexCall({
+//   "series": {
+//       "id": 315,
+//       "title": "The Mysterious Benedict Society",
+//       "path": "/volume1/video/series/The Mysterious Benedict Society",
+//       "tvdbId": 387958,
+//       "tvMazeId": 43820,
+//       "imdbId": "tt11875316",
+//       "type": SerieTypes.STANDARD,
+//   },
+//   "episodes": [
+//       {
+//           "id": 18219,
+//           "episodeNumber": 7,
+//           "seasonNumber": 1,
+//           "title": "The Dance of the Celestial Orb",
+//           "airDate": "2021-07-30",
+//           "airDateUtc": new Date("2021-07-30T07:00:00Z")
+//       }
+//   ],
+//   "episodeFile": {
+//       "id": 12719,
+//       "relativePath": "Season 01/The Mysterious Benedict Society - S01E07 - The Dance of the Celestial Orb WEBDL-1080p.mkv",
+//       "path": "/volume2/temp/series/The.Mysterious.Benedict.Society.S01E07.1080p.WEB.H264-EXPLOIT[rarbg]/The.Mysterious.Benedict.Society.S01E07.1080p.WEB.H264-EXPLOIT.mkv",
+//       "quality": "WEBDL-1080p",
+//       "qualityVersion": 1,
+//       "releaseGroup": "EXPLOIT",
+//       "sceneName": "The.Mysterious.Benedict.Society.S01E07.1080p.WEB.H264-EXPLOIT[rarbg]",
+//       "size": 2287289210
+//   },
+//   "isUpgrade": false,
+//   "downloadClient": "Transmission",
+//   "downloadId": "5340DE28462762744A9D61908DBBAB0D4114D0EC",
+//   "eventType": EventType.Download
+// } as OnDownload)
