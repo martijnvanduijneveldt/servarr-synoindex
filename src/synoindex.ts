@@ -3,19 +3,21 @@ import { Sonarr, SonarrRequest } from './sonarr-models';
 import { Radarr, RadarrRequest } from './radarr-models';
 import { Lidarr, LidarrRequest } from './lidarr-models';
 
+import { logger } from './logger';
+
 function execSynoIndex(args: string[]) {
   const prc = spawn('synoindex', args);
-  console.log('synoindex', args.join(' '));
+  logger.info('synoindex ', args.join(' '));
   //noinspection JSUnresolvedFunction
-  prc.stdout.setEncoding('utf8');
-  prc.stdout.on('data', (data) => {
-    const str = data.toString()
-    const lines = str.split(/(\r?\n)/g);
-    console.log(lines.join(""));
-  });
+  // prc.stdout.setEncoding('utf8');
+  // prc.stdout.on('data', (data) => {
+  //   const str = data.toString()
+  //   const lines = str.split(/(\r?\n)/g);
+  //   winston.info(lines.join(""));
+  // });
 
   prc.on('close', (code) => {
-    console.log('process exit code ' + code);
+    logger.info(`synoindex ${args.join(' ')} exit code ${code}`);
   });
 }
 
