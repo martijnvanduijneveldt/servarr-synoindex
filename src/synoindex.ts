@@ -59,7 +59,7 @@ export function synoIndexCallSonarr(request: SonarrRequest) {
 
 export function synoIndexCallRadarr(request: RadarrRequest) {
   if (Radarr.onDownload(request)) {
-    SynoIndex.AddFile(request.movieFile.path)
+    SynoIndex.AddFile(request.movie.filePath)
     if (request.deletedFiles) {
       request.deletedFiles.forEach(element => {
         SynoIndex.RemoveFile(element.path);
