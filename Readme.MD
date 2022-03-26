@@ -1,6 +1,6 @@
 # Servarr synoindex
 
-A wrapper to be able to call synoindex using an api from sonarr/radar/lidarr
+A wrapper to be able to call synoindex using an api from sonarr/radar/lidarr docker container
 
 ## Install
 ```
