@@ -3,12 +3,12 @@ import { Sonarr, SonarrRequest } from './sonarr-models';
 import { Radarr, RadarrRequest } from './radarr-models';
 import { Lidarr, LidarrRequest } from './lidarr-models';
 
-import { logger } from './logger';
+import logger from './logger';
 
 function execSynoIndex(args: string[]) {
   const prc = spawn('synoindex', args);
   logger.info('synoindex ', args.join(' '));
-  //noinspection JSUnresolvedFunction
+  // noinspection JSUnresolvedFunction
   // prc.stdout.setEncoding('utf8');
   // prc.stdout.on('data', (data) => {
   //   const str = data.toString()
@@ -40,64 +40,61 @@ class SynoIndex {
 
 export function synoIndexCallSonarr(request: SonarrRequest) {
   if (Sonarr.isDownload(request)) {
-    SynoIndex.AddFile(request.episodeFile.path)
+    SynoIndex.AddFile(request.episodeFile.path);
   }
   if (Sonarr.isUpgrade(request)) {
-    SynoIndex.AddFile(request.episodeFile.path)
+    SynoIndex.AddFile(request.episodeFile.path);
     if (request.deletedFiles) {
-      request.deletedFiles.forEach(element => {
+      request.deletedFiles.forEach((element) => {
         SynoIndex.RemoveFile(element.path);
       });
     }
   }
   if (Sonarr.isRename(request)) {
-    request.renamedEpisodeFiles.forEach(element => {
-      SynoIndex.UpgradeFile(element.path, element.previousPath)
+    request.renamedEpisodeFiles.forEach((element) => {
+      SynoIndex.UpgradeFile(element.path, element.previousPath);
     });
   }
 }
 
 export function synoIndexCallRadarr(request: RadarrRequest) {
   if (Radarr.onDownload(request)) {
-    SynoIndex.AddFile(request.movie.filePath)
+    SynoIndex.AddFile(request.movie.filePath);
     if (request.deletedFiles) {
-      request.deletedFiles.forEach(element => {
+      request.deletedFiles.forEach((element) => {
         SynoIndex.RemoveFile(element.path);
       });
     }
   }
   if (Radarr.onRename(request)) {
-    SynoIndex.AddFile(request.movie.filePath)
+    SynoIndex.AddFile(request.movie.filePath);
   }
   if (Radarr.onDelete(request) && request.deletedFiles === true) {
-    SynoIndex.RemoveFile(request.movie.filePath)
+    SynoIndex.RemoveFile(request.movie.filePath);
   }
   if (Radarr.onDeleteFile(request)) {
-    SynoIndex.AddFile(request.movie.filePath)
+    SynoIndex.AddFile(request.movie.filePath);
   }
 }
 
 export function synoIndexCallLidarr(request: LidarrRequest) {
   if (Lidarr.isDownload(request)) {
-    request.trackFiles.forEach(element => {
+    request.trackFiles.forEach((element) => {
       SynoIndex.AddFile(element.path);
     });
   }
   if (Lidarr.isUpgrade(request)) {
-    request.trackFiles.forEach(element => {
+    request.trackFiles.forEach((element) => {
       SynoIndex.AddFile(element.path);
     });
     // oldFiles is not exposed on webhook yet, needs a pull request
     if (request.deletedFiles) {
-      request.deletedFiles.forEach(element => {
+      request.deletedFiles.forEach((element) => {
         SynoIndex.RemoveFile(element.path);
       });
     }
   }
   if (Lidarr.isRename(request)) {
-    SynoIndex.AddFile(request.artist.path)
+    SynoIndex.AddFile(request.artist.path);
   }
 }
-
-
-

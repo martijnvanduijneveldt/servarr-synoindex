@@ -2,7 +2,7 @@ export enum EventType {
   Grab = 'Grab',
   Download = 'Download',
   Rename = 'Rename',
-  Test = 'Test'
+  Test = 'Test',
 }
 
 export enum SerieTypes {
@@ -83,7 +83,7 @@ export interface OnTest {
   episodes: Episode[];
 }
 
-export type SonarrRequest = OnTest | OnRename |  OnDownload | OnUpgrade;
+export type SonarrRequest = OnTest | OnRename | OnDownload | OnUpgrade;
 
 export class Sonarr {
   static isDownload(request: SonarrRequest): request is OnDownload {
@@ -97,5 +97,4 @@ export class Sonarr {
   static isRename(request: SonarrRequest): request is OnRename {
     return request.eventType === EventType.Rename;
   }
-
 }

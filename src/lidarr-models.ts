@@ -1,133 +1,130 @@
 export enum EventType {
-    Test = 'Test',
-    Download = 'Download',
-    Rename = 'Rename',
-    Health = 'Health',
-    Retag = 'Retag',
+  Test = 'Test',
+  Download = 'Download',
+  Rename = 'Rename',
+  Health = 'Health',
+  Retag = 'Retag',
 }
 
 export enum HealthCheckResult {
-    Ok = 'Ok',
-    Notice = 'Notice',
-    Warning = 'Warning',
-    Error = 'Error',
+  Ok = 'Ok',
+  Notice = 'Notice',
+  Warning = 'Warning',
+  Error = 'Error',
 }
 
 export interface WebhookPayload {
-    eventType: EventType;
+  eventType: EventType;
 }
 
 export interface WebhookArtist {
-    id: number;
-    name: string;
-    path: string;
-    mBId: string;
+  id: number;
+  name: string;
+  path: string;
+  mBId: string;
 }
 
 export interface WebhookAlbum {
-    id: number;
-    title: string
-    releaseDate: Date;
+  id: number;
+  title: string
+  releaseDate: Date;
 
-    quality: string
-    qualityVersion: number;
-    releaseGroup: string
-    sceneName: string
+  quality: string
+  qualityVersion: number;
+  releaseGroup: string
+  sceneName: string
 }
 
 export interface WebhookTrack {
-    id: number
-    title: string
-    trackNumber: string
+  id: number
+  title: string
+  trackNumber: string
 
-    quality: string
-    qualityVersion: number
-    releaseGroup: string
+  quality: string
+  qualityVersion: number
+  releaseGroup: string
 }
 
 export interface WebhookTrackFile {
-    id: number
-    path: string
-    quality: string
-    qualityVersion: number
-    releaseGroup: string
-    sceneName: string
-    size: number
+  id: number
+  path: string
+  quality: string
+  qualityVersion: number
+  releaseGroup: string
+  sceneName: string
+  size: number
 }
 
 export interface WebhookRelease {
-    quality: string
-    qualityVersion: number
-    releaseGroup: string
-    releaseTitle: string
-    indexer: string
-    size: number
+  quality: string
+  qualityVersion: number
+  releaseGroup: string
+  releaseTitle: string
+  indexer: string
+  size: number
 }
 
 export interface WebhookHealthPayload extends WebhookPayload {
-    eventType: EventType.Health;
+  eventType: EventType.Health;
 
-    Level: HealthCheckResult;
-    Message: string;
-    Type: string;
-    WikiUrl: string;
+  Level: HealthCheckResult;
+  Message: string;
+  Type: string;
+  WikiUrl: string;
 }
 
 export interface WebhookRetagPayload extends WebhookPayload {
-    eventType: EventType.Retag;
+  eventType: EventType.Retag;
 
-    artist: WebhookArtist;
+  artist: WebhookArtist;
 }
 
 export interface WebhookImportPayload extends WebhookPayload {
-    eventType: EventType.Download;
+  eventType: EventType.Download;
 
-    artist: WebhookArtist
-    tracks: Array<WebhookTrack>
-    trackFiles: Array<WebhookTrackFile>
-    isUpgrade: boolean
-    downloadClient: string
-    downloadId: string
+  artist: WebhookArtist
+  tracks: WebhookTrack[]
+  trackFiles: WebhookTrackFile[]
+  isUpgrade: boolean
+  downloadClient: string
+  downloadId: string
 
-    deletedFiles: Array<WebhookTrackFile>;
+  deletedFiles: WebhookTrackFile[];
 }
 
-
 export interface WebhookTestPayload extends WebhookPayload {
-    eventType: EventType.Test;
+  eventType: EventType.Test;
 
-    artist: WebhookArtist
-    albums: Array<WebhookAlbum>
+  artist: WebhookArtist
+  albums: WebhookAlbum[]
 }
 
 export interface WebhookRenamePayload extends WebhookPayload {
-    eventType: EventType.Rename;
+  eventType: EventType.Rename;
 
-    artist: WebhookArtist;
+  artist: WebhookArtist;
 }
-
-
 
 export type LidarrRequest = WebhookTestPayload | WebhookHealthPayload | WebhookRetagPayload | WebhookImportPayload | WebhookRenamePayload;
 
 export class Lidarr {
-    static isDownload(request: LidarrRequest): request is WebhookImportPayload {
-        return request.eventType === EventType.Download && (request as WebhookImportPayload).isUpgrade === false;
-    }
+  static isDownload(request: LidarrRequest): request is WebhookImportPayload {
+    return request.eventType === EventType.Download && (request as WebhookImportPayload).isUpgrade === false;
+  }
 
-    static isUpgrade(request: LidarrRequest): request is WebhookImportPayload {
-        return request.eventType === EventType.Download && (request as WebhookImportPayload).isUpgrade === true;
-    }
+  static isUpgrade(request: LidarrRequest): request is WebhookImportPayload {
+    return request.eventType === EventType.Download && (request as WebhookImportPayload).isUpgrade === true;
+  }
 
-    static isRename(request: LidarrRequest): request is WebhookRenamePayload {
-        return request.eventType === EventType.Rename;
-    }
+  static isRename(request: LidarrRequest): request is WebhookRenamePayload {
+    return request.eventType === EventType.Rename;
+  }
 
-    static isTest(request: LidarrRequest): request is WebhookTestPayload {
-        return request.eventType === EventType.Test;
-    }
+  static isTest(request: LidarrRequest): request is WebhookTestPayload {
+    return request.eventType === EventType.Test;
+  }
 
-    static isHealth(request: LidarrRequest): request is WebhookHealthPayload {
-        return request.eventType === EventType.Health;
-    }
+  static isHealth(request: LidarrRequest): request is WebhookHealthPayload {
+    return request.eventType === EventType.Health;
+  }
 }
